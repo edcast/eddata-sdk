@@ -6,8 +6,10 @@ This python based utility can be installed and run from a Unix or Windows enviro
 
 
 1. Install python3
-2. Install the python pre-req libraries using below command 
+2. Install the python pre-req libraries using below command
+````
         pip3 install -r requirements.txt
+````
 
 # Command to run
 ````
