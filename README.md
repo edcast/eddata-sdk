@@ -17,6 +17,9 @@ python3 edc_data_export.py --region us-east-1 --query "select * from user_card_p
 ````
 Above command runs and stores the extracted data in CSV format in the download_data.csv.
 
+# Downloading each Eddata dataset
+This is the section where downloading of data in the past hour for every single eddata dataset is described below
+
 # Sample Queries
 Some sample queries that can be used in the utility
 
