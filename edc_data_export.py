@@ -1,6 +1,6 @@
 # Version 1.1
 # Last update date - 06/11/2020
-# Built for preview and prod environment only
+# Built for qa, preview and prod environment only
 
 
 import boto3
@@ -91,7 +91,7 @@ def validate_org_id(args={}):
         return
 
 def validate_environment(args={}):
-    if args["ENV"] not in ['prod','preview']:
+    if args["ENV"] not in ['prod','preview','qa']:
         print("\n Environment not supported. Please check or contact EdCast support team.\n")
         exit()
     else:
@@ -184,10 +184,7 @@ def start_query_execution():
             QueryExecutionContext={
                 'Database': database
             },
-            WorkGroup=workgroup,
-            ResultConfiguration={
-                'OutputLocation': S3_OUTPUT_LOCATION
-            }
+            WorkGroup=workgroup
         )
     except Exception as e:
         print("\nUnexpected error while exporting the data. Please check query,org_id or S3_BUCKET values or contact EdCast support team. \n")
@@ -242,7 +239,7 @@ elif ('--{}'.format('version') in sys.argv):
 
 region = query = AWS_ACCESS_KEY_ID = AWS_SECRET_ACCESS_KEY = filename = database = s3bucket = env = ""
 
-AWS_REGIONS = ['us-east-1', 'us-east-2', 'us-west-1', 'us-west-2', 'eu-central-1']
+AWS_REGIONS = ['us-east-1', 'us-east-2', 'us-west-1', 'us-west-2', 'eu-central-1', 'ap-south-1', 'ap-southeast-2']
 
 validate = validate_input_args()
 
@@ -288,8 +285,12 @@ if(validate == 0):
         "ENV":env
     })
 
-database = "edc_"+env+"_analytics_customer_database_{}".format(str(org_id))
-workgroup = "{}-workgroup".format(org_id)
+if env == 'qa':
+    database = "edc_customer_database_{0}".format(str(org_id))
+else:
+    database = "edc_"+env+"_analytics_customer_database_{}".format(str(org_id))
+
+workgroup = "{}".format(org_id)
 
 PREFIX = "athena_query_results/org_id={}/".format(org_id)
 BUCKET_NAME = s3bucket
