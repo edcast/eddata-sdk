@@ -1,6 +1,6 @@
 # Version 1.1
 # Last update date - 06/11/2020
-# Built for preview and prod environment only
+# Built for qa, preview and prod environment only
 
 
 import boto3
@@ -13,9 +13,10 @@ import argparse
 VERSION = 1.1
 BUILT_ON = '2020-06-11 06:47:00 PST'
 
+
 def get_version():
-    return "version={} built-on {}".format(VERSION,BUILT_ON)
-	
+    return "version={} built-on {}".format(VERSION, BUILT_ON)
+
 
 def validate_region(args={}):
     if args["REGION"] not in AWS_REGIONS:
@@ -25,6 +26,7 @@ def validate_region(args={}):
         global region
         region = args["REGION"]
         return
+
 
 def validate_query(args={}):
     if 'where' not in args["QUERY"].lower():
@@ -43,8 +45,10 @@ def validate_query(args={}):
         query = args["QUERY"]
         return
 
+
 def validate_access_key(args={}):
-    valid_access_key = re.search("(?<![A-Z0-9])[A-Z0-9]{20}(?![A-Z0-9])", args["AWS_ACCESS_KEY_ID"])
+    valid_access_key = re.search(
+        "(?<![A-Z0-9])[A-Z0-9]{20}(?![A-Z0-9])", args["AWS_ACCESS_KEY_ID"])
     if valid_access_key == None:
         print("\nNot a valid access key. Please check or contact EdCast support team.\n")
         exit()
@@ -53,8 +57,10 @@ def validate_access_key(args={}):
         AWS_ACCESS_KEY_ID = args["AWS_ACCESS_KEY_ID"]
         return
 
+
 def validate_secret_access_key(args={}):
-    valid_secret_key = re.search("(?<![A-Za-z0-9/+=])[A-Za-z0-9/+=]{40}(?![A-Za-z0-9/+=])",args["AWS_SECRET_ACCESS_KEY"])
+    valid_secret_key = re.search(
+        "(?<![A-Za-z0-9/+=])[A-Za-z0-9/+=]{40}(?![A-Za-z0-9/+=])", args["AWS_SECRET_ACCESS_KEY"])
     if valid_secret_key == None:
         print("\n.Not a valid secret key. Please check or contact EdCast support team.\n")
         exit()
@@ -63,14 +69,16 @@ def validate_secret_access_key(args={}):
         AWS_SECRET_ACCESS_KEY = args["AWS_SECRET_ACCESS_KEY"]
         return
 
+
 def validate_filename(args={}):
     if not args["FILENAME"].endswith('.csv'):
         print("\n Not a valid csv filename \n")
-        exit()    
+        exit()
     else:
         global filename
         filename = args["FILENAME"]
         return
+
 
 def validate_s3bucket(args={}):
     if args["S3BUCKET"] == "":
@@ -81,6 +89,7 @@ def validate_s3bucket(args={}):
         s3bucket = args["S3BUCKET"]
         return
 
+
 def validate_org_id(args={}):
     if args["ORG_ID"] == "":
         print("\n ORG_ID cannot be null \n")
@@ -90,55 +99,67 @@ def validate_org_id(args={}):
         org_id = args["ORG_ID"]
         return
 
+
 def validate_environment(args={}):
-    if args["ENV"] not in ['prod','preview']:
-        print("\n Environment not supported. Please check or contact EdCast support team.\n")
+    if args["ENV"] not in ['prod', 'preview', 'qa']:
+        print(
+            "\n Environment not supported. Please check or contact EdCast support team.\n")
         exit()
     else:
         global env
         env = args["ENV"]
         return
 
+
 def validate_input_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--region", help="The region name that was provided by EdCast support team")
-    parser.add_argument("--query", help="The query which you want to bulk download")
-    parser.add_argument("--aws_access_key_id", help="The aws access key that was provided by EdCast support team")
-    parser.add_argument("--aws_secret_access_key", help="The aws secret key that was provided by EdCast support team")
-    parser.add_argument("--filename", help="The filename and path where the file will be saved")
-    parser.add_argument("--s3bucket", help="The s3 bucket that was provided by EdCast support team")
-    parser.add_argument("--org_id", help="The organization id that was provided by EdCast support team")
-    parser.add_argument("--env", help="The environment that was provided by EdCast support team")
+    parser.add_argument(
+        "--region", help="The region name that was provided by EdCast support team")
+    parser.add_argument(
+        "--query", help="The query which you want to bulk download")
+    parser.add_argument("--aws_access_key_id",
+                        help="The aws access key that was provided by EdCast support team")
+    parser.add_argument("--aws_secret_access_key",
+                        help="The aws secret key that was provided by EdCast support team")
+    parser.add_argument(
+        "--filename", help="The filename and path where the file will be saved")
+    parser.add_argument(
+        "--s3bucket", help="The s3 bucket that was provided by EdCast support team")
+    parser.add_argument(
+        "--org_id", help="The organization id that was provided by EdCast support team")
+    parser.add_argument(
+        "--env", help="The environment that was provided by EdCast support team")
     args = parser.parse_args()
     if(args.region == None or args.query == None or args.aws_access_key_id == None or args.aws_secret_access_key == None or args.filename == None or args.s3bucket == None or args.org_id == None or args.env == None):
         print("\nNot all required arguments are given.\n")
         return 0
     else:
         validate_region({
-            "REGION":args.region
+            "REGION": args.region
         })
         validate_query({
-            "QUERY":args.query
+            "QUERY": args.query
         })
         validate_access_key({
-            "AWS_ACCESS_KEY_ID":args.aws_access_key_id
+            "AWS_ACCESS_KEY_ID": args.aws_access_key_id
         })
         validate_secret_access_key({
-            "AWS_SECRET_ACCESS_KEY":args.aws_secret_access_key
+            "AWS_SECRET_ACCESS_KEY": args.aws_secret_access_key
         })
         validate_filename({
-            "FILENAME":args.filename
+            "FILENAME": args.filename
         })
         validate_s3bucket({
-            "S3BUCKET":args.s3bucket
+            "S3BUCKET": args.s3bucket
         })
         validate_org_id({
             "ORG_ID": args.org_id
         })
         validate_environment({
-            "ENV":args.env
+            "ENV": args.env
         })
         return 1
+
 
 def get_help():
     print("\n Prerequisite for running the script")
@@ -170,9 +191,10 @@ def get_help():
     print("\n - Enter the org_id that was provided by EdCast support team: org_id the ID of the organization that was provided by EdCast support team")
     print("\n - Enter the env that was provided by EdCast support team: environment name that was provided by EdCast support team")
 
+
 def start_query_execution():
     client = boto3.client(
-        'athena', 
+        'athena',
         region_name=region,
         aws_access_key_id=AWS_ACCESS_KEY_ID,
         aws_secret_access_key=AWS_SECRET_ACCESS_KEY
@@ -184,15 +206,11 @@ def start_query_execution():
             QueryExecutionContext={
                 'Database': database
             },
-            WorkGroup=workgroup,
-            ResultConfiguration={
-                'OutputLocation': S3_OUTPUT_LOCATION
-            }
+            WorkGroup=workgroup
         )
     except Exception as e:
         print("\nUnexpected error while exporting the data. Please check query,org_id or S3_BUCKET values or contact EdCast support team. \n")
         exit()
-
 
     query_execution_id = execution['QueryExecutionId']
     query_state = 'RUNNING'
@@ -200,25 +218,30 @@ def start_query_execution():
     retry_count = 300
     while (execution_count <= retry_count and query_state in ['QUEUED', 'RUNNING']):
         # Get Query Execution
-        response = client.get_query_execution(QueryExecutionId=query_execution_id)
+        response = client.get_query_execution(
+            QueryExecutionId=query_execution_id)
 
         if 'QueryExecution' in response and 'Status' in response['QueryExecution'] and 'State' in response['QueryExecution']['Status']:
             query_state = response['QueryExecution']['Status']['State']
             if query_state == 'SUCCEEDED':
                 print("STATUS: " + query_state)
-                print("\nData export is complete and it's stored in {0}.\n".format(filename))
+                print(
+                    "\nData export is complete and it's stored in {0}.\n".format(filename))
                 return query_execution_id
                 break
             elif query_state == 'FAILED':
                 reason = response['QueryExecution']['Status']['StateChangeReason']
-                raise Exception("STATUS: " + query_state + ", Due to:" + reason )
+                raise Exception("STATUS: " + query_state +
+                                ", Due to:" + reason)
             else:
                 print("STATUS: " + query_state)
                 t.sleep(1)
         execution_count += 1
     else:
         client.stop_query_execution(QueryExecutionId=query_execution_id)
-        raise Exception('\nUnexpected error while exporting the data. Please try again!\n')
+        raise Exception(
+            '\nUnexpected error while exporting the data. Please try again!\n')
+
 
 def download_file():
     s3 = boto3.client(
@@ -230,7 +253,9 @@ def download_file():
     with open(filename, 'wb') as f:
         s3.download_fileobj(BUCKET_NAME, object_name, f)
 
-TABLES = ['user_card_performance_reporting_i', 'group_performance_reporting_i', 'channel_performance_reporting_i', 'group_assignments_performance_i', 'user_assignments_performance_i']
+
+TABLES = ['user_card_performance_reporting_i', 'group_performance_reporting_i',
+          'channel_performance_reporting_i', 'group_assignments_performance_i', 'user_assignments_performance_i']
 
 if ('--{}'.format('help') in sys.argv):
     get_help()
@@ -242,58 +267,68 @@ elif ('--{}'.format('version') in sys.argv):
 
 region = query = AWS_ACCESS_KEY_ID = AWS_SECRET_ACCESS_KEY = filename = database = s3bucket = env = ""
 
-AWS_REGIONS = ['us-east-1', 'us-east-2', 'us-west-1', 'us-west-2', 'eu-central-1']
+AWS_REGIONS = ['us-east-1', 'us-east-2',
+               'us-west-1', 'us-west-2', 'eu-central-1']
 
 validate = validate_input_args()
 
 if(validate == 0):
-    
+
     region = input("Enter your region: ")
     validate_region({
-        "REGION":region
+        "REGION": region
     })
 
     query = input("Enter the query: ")
     validate_query({
-        "QUERY":query
+        "QUERY": query
     })
 
-    AWS_ACCESS_KEY_ID = input("Enter aws_access_key_id that was provided by EdCast support team: ")
+    AWS_ACCESS_KEY_ID = input(
+        "Enter aws_access_key_id that was provided by EdCast support team: ")
     validate_access_key({
-        "AWS_ACCESS_KEY_ID":AWS_ACCESS_KEY_ID
+        "AWS_ACCESS_KEY_ID": AWS_ACCESS_KEY_ID
     })
 
-    AWS_SECRET_ACCESS_KEY = input("Enter aws_secret_access_key that was provided by EdCast support team: ")
+    AWS_SECRET_ACCESS_KEY = input(
+        "Enter aws_secret_access_key that was provided by EdCast support team: ")
     validate_secret_access_key({
-        "AWS_SECRET_ACCESS_KEY":AWS_SECRET_ACCESS_KEY
+        "AWS_SECRET_ACCESS_KEY": AWS_SECRET_ACCESS_KEY
     })
 
-    filename = input("Enter the file location along with the filename to be saved: ")
+    filename = input(
+        "Enter the file location along with the filename to be saved: ")
     validate_filename({
-        "FILENAME":filename
+        "FILENAME": filename
     })
 
-    s3bucket = input("Enter the s3 bucket name that was provided by EdCast support team: ")
+    s3bucket = input(
+        "Enter the s3 bucket name that was provided by EdCast support team: ")
     validate_s3bucket({
-        "S3BUCKET":s3bucket
+        "S3BUCKET": s3bucket
     })
 
-    org_id = input("Enter the org_id that was provided by EdCast support team: ")
+    org_id = input(
+        "Enter the org_id that was provided by EdCast support team: ")
     validate_org_id({
-        "ORG_ID":org_id
+        "ORG_ID": org_id
     })
 
     env = input("Enter the env that was provided by EdCast support team: ")
     validate_environment({
-        "ENV":env
+        "ENV": env
     })
 
-database = "edc_"+env+"_analytics_customer_database_{}".format(str(org_id))
-workgroup = "{}-workgroup".format(org_id)
+if env == 'qa':
+    database = "edc_customer_database_{0}".format(str(org_id))
+else:
+    database = "edc_"+env+"_analytics_customer_database_{}".format(str(org_id))
+
+workgroup = "{}".format(org_id)
 
 PREFIX = "athena_query_results/org_id={}/".format(org_id)
 BUCKET_NAME = s3bucket
-S3_OUTPUT_LOCATION = "s3://"+ BUCKET_NAME + "/" + PREFIX
+S3_OUTPUT_LOCATION = "s3://" + BUCKET_NAME + "/" + PREFIX
 if database:
     execution_id = start_query_execution()
 else:
