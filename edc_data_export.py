@@ -10,8 +10,8 @@ import re
 import sys
 import argparse
 
-VERSION = 1.1
-BUILT_ON = '2020-06-11 06:47:00 PST'
+VERSION = 1.2
+BUILT_ON = '2021-04-22 06:00:00 PST'
 
 
 def get_version():
@@ -215,7 +215,7 @@ def start_query_execution():
     query_execution_id = execution['QueryExecutionId']
     query_state = 'RUNNING'
     execution_count = 1
-    retry_count = 300
+    retry_count = 900
     while (execution_count <= retry_count and query_state in ['QUEUED', 'RUNNING']):
         # Get Query Execution
         response = client.get_query_execution(
@@ -240,18 +240,23 @@ def start_query_execution():
     else:
         client.stop_query_execution(QueryExecutionId=query_execution_id)
         raise Exception(
-            '\nUnexpected error while exporting the data. Please try again!\n')
+            '\n Query execution is taking too long and timed out after 15 minutes. Please use filters/limits in the query to limit no of records and try again or contact EdCast support team. \n')
 
 
 def download_file():
-    s3 = boto3.client(
-        's3',
-        aws_access_key_id=AWS_ACCESS_KEY_ID,
-        aws_secret_access_key=AWS_SECRET_ACCESS_KEY
-    )
-    object_name = PREFIX + execution_id + ".csv"
-    with open(filename, 'wb') as f:
-        s3.download_fileobj(BUCKET_NAME, object_name, f)
+    try:
+        s3 = boto3.client(
+            's3',
+            aws_access_key_id=AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=AWS_SECRET_ACCESS_KEY
+        )
+        object_name = PREFIX + execution_id + ".csv"
+        with open(filename, 'wb') as f:
+            s3.download_fileobj(BUCKET_NAME, object_name, f)
+    except Exception as e:
+        print(e)
+        print("\nUnexpected error while downloading the data. Please check S3_BUCKET values or contact EdCast support team. \n")
+        exit()
 
 
 TABLES = ['user_card_performance_reporting_i', 'group_performance_reporting_i',
