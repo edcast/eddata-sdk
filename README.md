@@ -1,5 +1,5 @@
 # eddata-sdk
-SDK to query EdCast's data lake
+SDK to query EdCast's data lake. This is a wrapper script which uses AWS Athena python SDK to query and download the data.
 
 # Installation
 This python based utility can be installed and run from a Unix or Windows environment. Below are the steps to install and run the utility.
@@ -13,15 +13,15 @@ This python based utility can be installed and run from a Unix or Windows enviro
 
 # Command to run
 ````
-python3 edc_data_export.py --region us-east-1 --query "select * from user_card_performance_reporting_i where day=’2020-04-01’" --aws_access_key_id <<sample_access_key>> --aws_secret_access_key <<sample_secret_key>> --filename download_data.csv --s3bucket  edcast-provided-bucket-name --org_id 100000 --env prod
+python3 edc_data_export.py --region us-east-1 --query "select * from user_card_performance_reporting_i_v where day=’2020-04-01’" --aws_access_key_id <<sample_access_key>> --aws_secret_access_key <<sample_secret_key>> --filename download_data.csv --s3bucket  edcast-provided-bucket-name --org_id 100000 --env prod
 ````
 Above command runs and stores the extracted data in CSV format in the download_data.csv.
 
 # Downloading each Eddata dataset
-This is the section where downloading of data in the past hour for every single eddata dataset is described below
+This is the section where downloading of data in the past hour for every single eddata dataset is described below.
 
 # Sample Queries
-Some sample queries that can be used in the utility
+Some sample queries that can be used in the utility.
 
 ````
 select * from user_card_performance_reporting_i_v where day=’2020-04-01’

@@ -176,13 +176,13 @@ def get_help():
     for table in TABLES:
         print("         - {0}".format(table))
     print("\n     3. Example queries are")
-    print("         - \"select * from user_card_performance_reporting_i where day=’2020-04-01’\"")
-    print("         - \"select * from user_card_performance_reporting_i where day between ‘2020-04-01’ and ‘2020-04-04’\"")
-    print("         - \"select * from user_card_performance_reporting_i where day between ‘2020-04-01’ and ‘2020-04-04’ and user_email=’admin@acme.com’\"")
-    print("         - \"select * from user_card_performance_reporting_i where day between ‘2020-04-01’ and ‘2020-04-04’ and user_first_name like ’admin%\"")
-    print("         - \"select * from user_card_performance_reporting_i where day between ‘2020-04-01’ and ‘2020-04-04’ and card_tile like ‘admin%’\"")
-    print("         - \"select * from user_assignments_performance_i where day between ‘2020-04-01’ and ‘2020-04-04’ and assignment_state=’completed’\"")
-    print("         - \"select * from group_assignments_performance_i where day between ‘2020-04-01’ and ‘2020-04-04’ \"")
+    print("         - \"select * from user_card_performance_reporting_i_v where day=’2020-04-01’\"")
+    print("         - \"select * from user_card_performance_reporting_i_v where day between ‘2020-04-01’ and ‘2020-04-04’\"")
+    print("         - \"select * from user_card_performance_reporting_i_v where day between ‘2020-04-01’ and ‘2020-04-04’ and user_email=’admin@acme.com’\"")
+    print("         - \"select * from user_card_performance_reporting_i_v where day between ‘2020-04-01’ and ‘2020-04-04’ and user_first_name like ’admin%\"")
+    print("         - \"select * from user_card_performance_reporting_i_v where day between ‘2020-04-01’ and ‘2020-04-04’ and card_tile like ‘admin%’\"")
+    print("         - \"select * from user_assignments_performance_i_v where day between ‘2020-04-01’ and ‘2020-04-04’ and assignment_state=’completed’\"")
+    print("         - \"select * from group_assignments_performance_i_v where day between ‘2020-04-01’ and ‘2020-04-04’ \"")
     print("\n - Enter your aws_access_key_id: 'AWS_ACCESS_KEY_ID' the key ID that was provided by EdCast support team.")
     print("\n - Enter your aws_secret_access_key: 'AWS_SECRET_ACCESS_KEY' the secret key that was provided by EdCast support team.")
     print("\n - Enter the file location along with the filename to be saved: 'FILENAME' the path and the filename where you want to save the file. The only supported file type is csv.")
@@ -259,8 +259,8 @@ def download_file():
         exit()
 
 
-TABLES = ['user_card_performance_reporting_i', 'group_performance_reporting_i',
-          'channel_performance_reporting_i', 'group_assignments_performance_i', 'user_assignments_performance_i']
+TABLES = ['user_card_performance_reporting_i_v', 'group_performance_reporting_i_v',
+          'channel_performance_reporting_i_v', 'group_assignments_performance_i_v', 'user_assignments_performance_i_v']
 
 if ('--{}'.format('help') in sys.argv):
     get_help()
@@ -324,9 +324,9 @@ if(validate == 0):
     })
 
 if env == 'qa':
-    database = "edc_customer_database_{0}".format(str(org_id))
+    database = "v1_edc_qa_analytics_customer_database_{0}".format(str(org_id))
 else:
-    database = "edc_"+env+"_analytics_customer_database_{}".format(str(org_id))
+    database = "v1_edc_"+env+"_analytics_customer_database_{}".format(str(org_id))
 
 workgroup = "{}".format(org_id)
 
