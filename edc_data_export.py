@@ -259,7 +259,7 @@ def download_file():
         exit()
 
 
-TABLES = ['user_card_performance_reporting_i_v', 'group_performance_reporting_i_v',
+TABLES = ['user_card_performance_reporting_i_v', 'group_performance_reporting_i_v', 'searches_fact_i_v',
           'channel_performance_reporting_i_v', 'group_assignments_performance_i_v', 'user_assignments_performance_i_v']
 
 if ('--{}'.format('help') in sys.argv):
