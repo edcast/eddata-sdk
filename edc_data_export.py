@@ -1,5 +1,5 @@
-# Version 1.1
-# Last update date - 06/11/2020
+# Version 2.0
+# Last update date - 09/22/2021
 # Built for qa, preview and prod environment only
 
 
@@ -10,8 +10,8 @@ import re
 import sys
 import argparse
 
-VERSION = 1.2
-BUILT_ON = '2021-04-22 06:00:00 PST'
+VERSION = 2.0
+BUILT_ON = '2021-09-22 06:00:00 PST'
 
 
 def get_version():
@@ -259,8 +259,7 @@ def download_file():
         exit()
 
 
-TABLES = ['user_card_performance_reporting_i_v', 'group_performance_reporting_i_v', 'searches_fact_i_v',
-          'channel_performance_reporting_i_v', 'group_assignments_performance_i_v', 'user_assignments_performance_i_v']
+TABLES = ['assignments_fact_m_v', 'badges_dim_m_v', 'card_pack_relations_dim_m_v', 'card_performance_hourly_rollups_i_v', 'card_reportings_dim_m_v', 'cards_dim_m_v', 'channel_performance_hourly_rollups_i_v', 'channel_performance_reporting_i_v', 'channels_cards_dim_m_v', 'channels_dim_m_v', 'comments_fact_m_v', 'custom_fields_dim_m_v', 'group_assignments_performance_i_v', 'group_performance_hourly_rollups_i_v', 'group_performance_reporting_i_v', 'groups_dim_m_v', 'invalid_user_card_performance_reporting_i_v', 'journey_pack_relations_dim_m_v', 'mkp_course_event_review_dim_m_v', 'mkp_course_events_dim_m_v', 'mkp_courses_dim_m_v', 'mkp_daily_attendance_dim_m_v', 'mkp_learner_events_dim_m_v', 'organizations_dim_m_v', 'profiles_dim_m_v', 'quizzes_fact_m_v', 'roles_dim_m_v', 'searches_fact_i_v', 'skills_users_dim_m_v', 'structured_items_fact_m_v', 'structures_dim_m_v', 'team_assignments_fact_m_v', 'teams_dim_m_v', 'teams_users_fact_m_v', 'user_assignments_performance_i_v', 'user_card_performance_reporting_i_v', 'user_content_completions_dim_m_v', 'user_custom_fields_dim_m_v', 'user_metrics_aggregations_fact_m_v', 'user_onboardings_dim_m_v', 'user_performance_hourly_rollups_i_v', 'user_profiles_fact_m_v', 'users_dim_m_v']
 
 if ('--{}'.format('help') in sys.argv):
     get_help()
