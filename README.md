@@ -45,7 +45,7 @@ There is no output to the utility call, a file will be downloaded locally with t
 
 SDK to query EdCast's data lake. This is a wrapper script which uses BigQuery python SDK to query and download the data.
 
-# Installation
+## Installation
 This python based utility can be installed and run from a Unix or Windows environment. Below are the steps to install and run the utility.
 
 1. Install python3
@@ -54,22 +54,22 @@ This python based utility can be installed and run from a Unix or Windows enviro
 ````
         pip3 install -r gcp_requirements.txt
 ````
-# Command to run 
+## Command to download dataset from GCP: 
 ````
-GCP_ENV=yes python3 edc_data_export.py \
-    -c $SERVICE_ACCOUNT_JSON \
-    -q "select * from $CUSTOMER_DATASET.$TABLE_NAME" \
+python3 edc_data_export.py \
+    --cred_file $SERVICE_ACCOUNT_JSON \
+    --provider gcp \
+    --query "select * from $CUSTOMER_DATASET.$TABLE_NAME" \
+    --filename output.csv \
 ````
 Above command runs and stores the extracted data in CSV format in the output.csv
 
-# Downloading each Eddata dataset
-This is the section where downloading of data in the past hour for every single eddata dataset is described below.
 
-# Sample Queries for GCP
-Some sample queries that can be used or refrenced.
+## Sample Queries for GCP
+Some sample queries that can be reffered.
 
 ````
 SELECT * FROM edc_qa_analytics_customer_100006.o_user_card_performance
 SELECT * FROM edc_qa_analytics_customer_100006.o_user_assignments_performance
 ````
-The output file will be downloaded locally with the given name.
+The output file will be downloaded locally with the given name provided through --filename argument.

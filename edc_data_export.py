@@ -1,6 +1,6 @@
-# Version 2.0
-# Last update date - 09/22/2021
-# Built for qa, preview and prod environment only
+# Version 3.0
+# Last update date - 01/19/2022
+# AWS Built for qa, preview and prod environment only
 # Below script is modifed to handle GCP on 19/01/2022
 
 import os
@@ -9,38 +9,39 @@ import re
 import sys
 import argparse
 
+VERSION = 3.0
+BUILT_ON = '2022-01-19 07:00:00 PST'
 
-GCP_ENV = os.environ.get('GCP_ENV', 'No')
+parser = argparse.ArgumentParser()
+parser.add_argument("--region", help="The region name that was provided by EdCast support team")
+parser.add_argument("--query",  help="The query which you want to bulk download")
+parser.add_argument("--aws_access_key_id", help="The aws access key that was provided by EdCast support team")
+parser.add_argument("--aws_secret_access_key", help="The aws secret key that was provided by EdCast support team")
+parser.add_argument("--filename", help="The filename and path where the file will be saved")
+parser.add_argument("--s3bucket", help="The s3 bucket that was provided by EdCast support team")
+parser.add_argument("--org_id", help="The organization id that was provided by EdCast support team")
+parser.add_argument("--env", help="The environment that was provided by EdCast support team")
+parser.add_argument('--provider',  help="Please provide either AWS/GCP")
+parser.add_argument("--cred_file", help = "Absolute path of the service account json")
+args = parser.parse_args()
 
-if GCP_ENV == 'yes':
-    
+
+if args.provider.lower() == 'gcp':
     from google.cloud import bigquery
-    
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--cred_file", "-c", help = "Absolute path of the service account json")
-    parser.add_argument("--query", "-q", help = "Query to run against bigquery")
-    parser.add_argument("--out", "-o", help = "Path with file name - '/home/user/user_card_perf.csv'", default= "./output.csv")
-    args = parser.parse_args()
-
+  
     CRED_FILE = args.cred_file
     QUERY = args.query
-    OUTPUT = args.out
-
+    OUTPUT = args.filename
     os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = CRED_FILE
-
     client = bigquery.Client()
-
     result = client.query(QUERY).to_dataframe()  # Make an API request.
-
     print("Storing data in CSV : " + OUTPUT)
     result.to_csv(OUTPUT, index=False) 
 
 else:
     import boto3
     import numpy
-    VERSION = 2.0
-    BUILT_ON = '2021-09-22 06:00:00 PST'
-
+    
     def get_version():
         return "version={} built-on {}".format(VERSION, BUILT_ON)
 
@@ -138,24 +139,7 @@ else:
             return
 
     def validate_input_args():
-        parser = argparse.ArgumentParser()
-        parser.add_argument(
-            "--region", help="The region name that was provided by EdCast support team")
-        parser.add_argument(
-            "--query", help="The query which you want to bulk download")
-        parser.add_argument("--aws_access_key_id",
-                            help="The aws access key that was provided by EdCast support team")
-        parser.add_argument("--aws_secret_access_key",
-                            help="The aws secret key that was provided by EdCast support team")
-        parser.add_argument(
-            "--filename", help="The filename and path where the file will be saved")
-        parser.add_argument(
-            "--s3bucket", help="The s3 bucket that was provided by EdCast support team")
-        parser.add_argument(
-            "--org_id", help="The organization id that was provided by EdCast support team")
-        parser.add_argument(
-            "--env", help="The environment that was provided by EdCast support team")
-        args = parser.parse_args()
+       
         if(args.region == None or args.query == None or args.aws_access_key_id == None or args.aws_secret_access_key == None or args.filename == None or args.s3bucket == None or args.org_id == None or args.env == None):
             print("\nNot all required arguments are given.\n")
             return 0
