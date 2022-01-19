@@ -26,9 +26,8 @@ parser.add_argument("--cred_file", help = "Absolute path of the service account 
 args = parser.parse_args()
 
 
-if args.provider.lower() == 'gcp':
+if args.provider == 'gcp':
     from google.cloud import bigquery
-  
     CRED_FILE = args.cred_file
     QUERY = args.query
     OUTPUT = args.filename

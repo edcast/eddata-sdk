@@ -1,7 +1,7 @@
 # EdData-sdk
 
-## [AWS](https://github.com/avinash-u/eddata-sdk/tree/gcp-eddata-sdk#edcast-aws-environment)
-## [GCP](https://github.com/avinash-u/eddata-sdk/tree/gcp-eddata-sdk#edcast-gcp-environment)
+- # AWS
+- # GCP
 
 ## EdCast AWS Environment: 
 SDK to query EdCast's data lake. This is a wrapper script which uses AWS Athena python SDK to query and download the data.
