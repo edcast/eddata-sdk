@@ -8,12 +8,13 @@ GCP ENVIRONMENT: SDK to query EdCast's data lake. This is a wrapper script which
 This python based utility can be installed and run from a Unix or Windows environment. Below are the steps to install and run the utility.
 
 1. Install python3
-2. 
-Install the python pre-req libraries for AWS using below command
+2. Install the python pre-req libraries using below command
+
+For AWS:
 ````
         pip3 install -r requirements.txt
 ````
-Install the python pre-req libraries for GCP using below command
+For GCP:
 ````
         pip3 install -r gcp_requirements.txt
 ````
