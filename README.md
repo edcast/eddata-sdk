@@ -1,43 +1,33 @@
-# eddata-sdk
+# EdData-sdk
 
-AWS ENVIRONMENT: SDK to query EdCast's data lake. This is a wrapper script which uses AWS Athena python SDK to query and download the data.
+# [AWS](https://github.com/avinash-u/eddata-sdk/tree/gcp-eddata-sdk#installation)
+# [GCP](https://github.com/avinash-u/eddata-sdk/tree/gcp-eddata-sdk#gcpenvironment)
 
-GCP ENVIRONMENT: SDK to query EdCast's data lake. This is a wrapper script which uses BigQuery python SDK to query and download the data.
+## AWS Environment 
+SDK to query EdCast's data lake. This is a wrapper script which uses AWS Athena python SDK to query and download the data.
 
-# Installation
+
+## Installation
 This python based utility can be installed and run from a Unix or Windows environment. Below are the steps to install and run the utility.
 
 1. Install python3
 2. Install the python pre-req libraries using below command
 
-For AWS:
 ````
         pip3 install -r requirements.txt
 ````
-For GCP:
-````
-        pip3 install -r gcp_requirements.txt
-````
-
-# Command to run for AWS
+## Command to run
 ````
 python3 edc_data_export.py --region us-east-1 --query "select * from user_card_performance_reporting_i_v where day=’2020-04-01’" --aws_access_key_id <<sample_access_key>> --aws_secret_access_key <<sample_secret_key>> --filename download_data.csv --s3bucket  edcast-provided-bucket-name --org_id 100000 --env prod
 ````
 Above command runs and stores the extracted data in CSV format in the download_data.csv.
 
-# Command to run for GCP
-````
-GCP_ENV=yes python3 edc_data_export.py \
-    -c $SERVICE_ACCOUNT_JSON \
-    -q "select * from $CUSTOMER_DATASET.$TABLE_NAME" \
-````
-Above command runs and stores the extracted data in CSV format in the output.csv
 
 
-# Downloading each Eddata dataset
+## Downloading each EdData dataset
 This is the section where downloading of data in the past hour for every single eddata dataset is described below.
 
-# Sample Queries for AWS
+## Sample Queries for AWS
 Some sample queries that can be used in the utility.
 
 ````
@@ -50,6 +40,30 @@ select * from user_assignments_performance_i_v where day between ‘2020-04-01�
 ````
 There is no output to the utility call, a file will be downloaded locally with the given name.
 
+
+## GCP ENVIRONMENT
+
+SDK to query EdCast's data lake. This is a wrapper script which uses BigQuery python SDK to query and download the data.
+
+# Installation
+This python based utility can be installed and run from a Unix or Windows environment. Below are the steps to install and run the utility.
+
+1. Install python3
+2. Install the python pre-req libraries using below command
+
+````
+        pip3 install -r gcp_requirements.txt
+````
+# Command to run 
+````
+GCP_ENV=yes python3 edc_data_export.py \
+    -c $SERVICE_ACCOUNT_JSON \
+    -q "select * from $CUSTOMER_DATASET.$TABLE_NAME" \
+````
+Above command runs and stores the extracted data in CSV format in the output.csv
+
+# Downloading each Eddata dataset
+This is the section where downloading of data in the past hour for every single eddata dataset is described below.
 
 # Sample Queries for GCP
 Some sample queries that can be used or refrenced.
