@@ -7,13 +7,12 @@ GCP ENVIRONMENT: SDK to query EdCast's data lake. This is a wrapper script which
 # Installation
 This python based utility can be installed and run from a Unix or Windows environment. Below are the steps to install and run the utility.
 
-
 1. Install python3
-2. Install the python pre-req libraries for AWS using below command
+2. 
+Install the python pre-req libraries for AWS using below command
 ````
         pip3 install -r requirements.txt
 ````
-
 Install the python pre-req libraries for GCP using below command
 ````
         pip3 install -r gcp_requirements.txt
@@ -48,14 +47,14 @@ select * from user_card_performance_reporting_i_v where day between ‘2020-04-0
 select * from user_card_performance_reporting_i_v where day between ‘2020-04-01’ and ‘2020-04-04’ and card_tile like ‘admin%’
 select * from user_assignments_performance_i_v where day between ‘2020-04-01’ and ‘2020-04-04’ and assignment_state=’completed’
 ````
-
 There is no output to the utility call, a file will be downloaded locally with the given name.
 
 
 # Sample Queries for GCP
-Some sample queries that can be used in the utility.
+Some sample queries that can be used or refrenced.
 
 ````
 SELECT * FROM edc_qa_analytics_customer_100006.o_user_card_performance
 SELECT * FROM edc_qa_analytics_customer_100006.o_user_assignments_performance
 ````
+The output file will be downloaded locally with the given name.
