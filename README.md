@@ -45,7 +45,7 @@ There is no output to the utility call, a file will be downloaded locally with t
 
 The insights from the data lake can be exported as CSV file via data export utility or via Google Big Query Client for offline processing. This utility connects to the Data lake and downloads the data specific to each customer. This utility requires customer specific credentials to download the data.
 
-### Authentication and Configuration Details
+#### Authentication and Configuration Details
 
 Authentication and Configuration details will be provided by the EdCast support team which should be utilized as parameters in the utility.
 
