@@ -69,11 +69,11 @@ Above command runs and stores the extracted data in CSV format in the output.csv
 Some sample queries that can be reffered.
 
 ````
-SELECT * FROM edc_qa_analytics_customer_100006.o_user_assignments_performance WHERE DAY="2021-12-15" 
-SELECT * FROM edc_qa_analytics_customer_100006.o_user_card_performance WHERE DAY between "2021-12-15" and "2022-01-15"
-SELECT * FROM edc_qa_analytics_customer_100006.o_user_card_performance WHERE DAY between "2021-12-10" and "2022-01-10" and user_email='admin@edcast.com'
-SELECT * FROM edc_qa_analytics_customer_100006.o_user_assignments_performance WHERE DAY between "2021-12-15" and "2022-01-15" and card_author_name like 'admin%'
-SELECT * FROM edc_qa_analytics_customer_100006.o_user_assignments_performance WHERE DAY between "2021-12-15" and "2022-01-15" and  assignment_state='completed'
-SELECT * FROM edc_qa_analytics_customer_100006.o_group_assignments_performance WHERE DAY between "2021-12-01" and "2022-01-20" and team_name='test-grp'
+select * from edc_qa_analytics_customer_$customer_id.user_card_performance_reporting_i_v where day=’2020-04-01’
+select * from edc_qa_analytics_customer_$customer_id.user_card_performance_reporting_i_v where day between ‘2020-04-01’ and ‘2020-04-04’
+select * from edc_qa_analytics_customer_$customer_id.user_card_performance_reporting_i_v where day between ‘2020-04-01’ and ‘2020-04-04’ and user_email=’admin@acme.com’
+select * from edc_qa_analytics_customer_$customer_id.user_card_performance_reporting_i_v where day between ‘2020-04-01’ and ‘2020-04-04’ and user_first_name like ’admin%
+select * from edc_qa_analytics_customer_$customer_id.user_card_performance_reporting_i_v where day between ‘2020-04-01’ and ‘2020-04-04’ and card_tile like ‘admin%’
+select * from edc_qa_analytics_customer_$customer_id.user_assignments_performance_i_v where day between ‘2020-04-01’ and ‘2020-04-04’ and assignment_state=’completed’
 ````
 The output file will be downloaded locally with the given name provided through --filename argument.
