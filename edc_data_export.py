@@ -30,7 +30,7 @@ if args.provider == 'gcp':
     from google.cloud import bigquery
     CRED_FILE = args.cred_file
     QUERY = args.query
-    OUTPUT = args.filename
+    OUTPUT = args.filename if args.filename else './output.csv'
     os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = CRED_FILE
     client = bigquery.Client()
     result = client.query(QUERY).to_dataframe()  # Make an API request.
