@@ -3,7 +3,7 @@
 - ### AWS
 - ### GCP
 
-#### EdCast AWS Environment: 
+### EdCast AWS Environment: 
 SDK to query EdCast's data lake. This is a wrapper script which uses AWS Athena python SDK to query and download the data.
 
 
@@ -41,7 +41,7 @@ select * from user_assignments_performance_i_v where day between â€˜2020-04-01â€
 There is no output to the utility call, a file will be downloaded locally with the given name.
 
 
-#### EdCast GCP Environment:
+### EdCast GCP Environment:
 
 SDK to query EdCast's data lake. This is a wrapper script which uses BigQuery python SDK to query and download the data.
 
