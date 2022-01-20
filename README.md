@@ -55,7 +55,7 @@ Authentication and Configuration details will be provided by the EdCast support 
 | --provider | Yes | gcp |
 | --cred_file | Yes | Absolute path to the credentials json file, Contact EdCast support for this value | 
 | --query | Yes | SQL compatible query |
-| --filename | Yes | Name of the file and its file type, if the whole path is given the file will be saved in the path accordingly.|
+| --filename | No | Name of the file and its file type, if the whole path is given the file will be saved in the path accordingly or Default it takes './output.csv'|
 
 #### Installation
 This python based utility can be installed and run from a Unix or Windows environment. Below are the steps to install and run the utility.
@@ -66,7 +66,7 @@ This python based utility can be installed and run from a Unix or Windows enviro
 ````
         pip3 install -r gcp_requirements.txt
 ````
-#### Command to download dataset from GCP: 
+#### Command to download dataset from GCP
 ````
 python3 edc_data_export.py \
     --cred_file $SERVICE_ACCOUNT_JSON \
