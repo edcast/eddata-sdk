@@ -1,13 +1,13 @@
-# EdData-sdk
+## EdData-sdk
 
-- # AWS
-- # GCP
+- ### AWS
+- ### GCP
 
-## EdCast AWS Environment: 
+#### EdCast AWS Environment: 
 SDK to query EdCast's data lake. This is a wrapper script which uses AWS Athena python SDK to query and download the data.
 
 
-## Installation
+#### Installation
 This python based utility can be installed and run from a Unix or Windows environment. Below are the steps to install and run the utility.
 
 1. Install python3
@@ -16,7 +16,7 @@ This python based utility can be installed and run from a Unix or Windows enviro
 ````
         pip3 install -r requirements.txt
 ````
-## Command to run
+#### Command to run
 ````
 python3 edc_data_export.py --region us-east-1 --query "select * from user_card_performance_reporting_i_v where day=’2020-04-01’" --aws_access_key_id <<sample_access_key>> --aws_secret_access_key <<sample_secret_key>> --filename download_data.csv --s3bucket  edcast-provided-bucket-name --org_id 100000 --env prod
 ````
@@ -24,10 +24,10 @@ Above command runs and stores the extracted data in CSV format in the download_d
 
 
 
-## Downloading each EdData dataset
+#### Downloading each EdData dataset
 This is the section where downloading of data in the past hour for every single eddata dataset is described below.
 
-## Sample Queries for AWS
+#### Sample Queries for AWS
 Some sample queries that can be used in the utility.
 
 ````
@@ -41,11 +41,11 @@ select * from user_assignments_performance_i_v where day between ‘2020-04-01�
 There is no output to the utility call, a file will be downloaded locally with the given name.
 
 
-## EdCast GCP Environment
+#### EdCast GCP Environment:
 
 SDK to query EdCast's data lake. This is a wrapper script which uses BigQuery python SDK to query and download the data.
 
-## Installation
+#### Installation
 This python based utility can be installed and run from a Unix or Windows environment. Below are the steps to install and run the utility.
 
 1. Install python3
@@ -54,7 +54,7 @@ This python based utility can be installed and run from a Unix or Windows enviro
 ````
         pip3 install -r gcp_requirements.txt
 ````
-## Command to download dataset from GCP: 
+#### Command to download dataset from GCP: 
 ````
 python3 edc_data_export.py \
     --cred_file $SERVICE_ACCOUNT_JSON \
@@ -65,11 +65,15 @@ python3 edc_data_export.py \
 Above command runs and stores the extracted data in CSV format in the output.csv
 
 
-## Sample Queries for GCP
+#### Sample Queries for GCP
 Some sample queries that can be reffered.
 
 ````
-SELECT * FROM edc_qa_analytics_customer_100006.o_user_card_performance
-SELECT * FROM edc_qa_analytics_customer_100006.o_user_assignments_performance
+SELECT * FROM edc_qa_analytics_customer_100006.o_user_assignments_performance WHERE DAY="2021-12-15" 
+SELECT * FROM edc_qa_analytics_customer_100006.o_user_card_performance WHERE DAY between "2021-12-15" and "2022-01-15"
+SELECT * FROM edc_qa_analytics_customer_100006.o_user_card_performance WHERE DAY between "2021-12-10" and "2022-01-10" and user_email='admin@edcast.com'
+SELECT * FROM edc_qa_analytics_customer_100006.o_user_assignments_performance WHERE DAY between "2021-12-15" and "2022-01-15" and card_author_name like 'admin%'
+SELECT * FROM edc_qa_analytics_customer_100006.o_user_assignments_performance WHERE DAY between "2021-12-15" and "2022-01-15" and  assignment_state='completed'
+SELECT * FROM edc_qa_analytics_customer_100006.o_group_assignments_performance WHERE DAY between "2021-12-01" and "2022-01-20" and team_name='test-grp'
 ````
 The output file will be downloaded locally with the given name provided through --filename argument.
