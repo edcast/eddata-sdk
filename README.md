@@ -43,7 +43,19 @@ There is no output to the utility call, a file will be downloaded locally with t
 
 ### EdCast GCP Environment:
 
-SDK to query EdCast's data lake. This is a wrapper script which uses BigQuery python SDK to query and download the data.
+The insights from the data lake can be exported as CSV file via data export utility or via Google Big Query Client for offline processing. This utility connects to the Data lake and downloads the data specific to each customer. This utility requires customer specific credentials to download the data.
+
+### Authentication and Configuration Details
+
+Authentication and Configuration details will be provided by the EdCast support team which should be utilized as parameters in the utility.
+
+| Configuration Name | Mandatory | Description |
+| ------ | ------ | ------ | 
+| --org_id | No | Contact EdCast support for this value |
+| --provider | Yes | gcp |
+| --cred_file | Yes | Absolute path to the credentials json file, Contact EdCast support for this value | 
+| --query | Yes | SQL compatible query |
+| --filename | Yes | Name of the file and its file type, if the whole path is given the file will be saved in the path accordingly.|
 
 #### Installation
 This python based utility can be installed and run from a Unix or Windows environment. Below are the steps to install and run the utility.
