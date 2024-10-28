@@ -51,11 +51,11 @@ Authentication and Configuration details will be provided by the EdCast support 
 
 | Configuration Name | Mandatory | Description |
 | ------ | ------ | ------ | 
-| --org_id | No | Contact EdCast support for this value |
 | --provider | Yes | gcp |
 | --cred_file | Yes | Absolute path to the credentials json file, Contact EdCast support for this Cred file | 
-| --query | Yes | SQL compatible query |
+| --query | Yes | SQL compatible query is ran with dataset name `edc_prod_analytics_customer_$ORG_ID` [$ORG_ID - Contact EdCast support for this value]  |
 | --filename | No | Name of the file and its file type, if the whole path is given the file will be saved in the path accordingly or Default it takes './output.csv'|
+
 
 #### Installation
 This python based utility can be installed and run from a Unix or Windows environment. Below are the steps to install and run the utility.
@@ -71,7 +71,7 @@ This python based utility can be installed and run from a Unix or Windows enviro
 python3 edc_data_export.py \
     --cred_file $SERVICE_ACCOUNT_JSON \
     --provider gcp \
-    --query "select * from $CUSTOMER_DATASET.$TABLE_NAME" \
+    --query "select * from edc_prod_analytics_customer_$ORG_ID.$TABLE_NAME" \
     --filename output.csv
 ````
 Above command runs and stores the extracted data in CSV format in the output.csv
@@ -81,11 +81,11 @@ Above command runs and stores the extracted data in CSV format in the output.csv
 Some sample queries that can be reffered.
 
 ````
-select * from edc_qa_analytics_customer_$ORG_ID.user_card_performance_reporting_i_v where day=’2020-04-01’
-select * from edc_qa_analytics_customer_$ORG_ID.user_card_performance_reporting_i_v where day between ‘2020-04-01’ and ‘2020-04-04’
-select * from edc_qa_analytics_customer_$ORG_ID.user_card_performance_reporting_i_v where day between ‘2020-04-01’ and ‘2020-04-04’ and user_email=’admin@acme.com’
-select * from edc_qa_analytics_customer_$ORG_ID.user_card_performance_reporting_i_v where day between ‘2020-04-01’ and ‘2020-04-04’ and user_first_name like ’admin%
-select * from edc_qa_analytics_customer_$ORG_ID.user_card_performance_reporting_i_v where day between ‘2020-04-01’ and ‘2020-04-04’ and card_tile like ‘admin%’
-select * from edc_qa_analytics_customer_$ORG_ID.user_assignments_performance_i_v where day between ‘2020-04-01’ and ‘2020-04-04’ and assignment_state=’completed’
+select * from edc_prod_analytics_customer_$ORG_ID.user_card_performance_reporting_i_v where day=’2020-04-01’
+select * from edc_prod_analytics_customer_$ORG_ID.user_card_performance_reporting_i_v where day between ‘2020-04-01’ and ‘2020-04-04’
+select * from edc_prod_analytics_customer_$ORG_ID.user_card_performance_reporting_i_v where day between ‘2020-04-01’ and ‘2020-04-04’ and user_email=’admin@acme.com’
+select * from edc_prod_analytics_customer_$ORG_ID.user_card_performance_reporting_i_v where day between ‘2020-04-01’ and ‘2020-04-04’ and user_first_name like ’admin%
+select * from edc_prod_analytics_customer_$ORG_ID.user_card_performance_reporting_i_v where day between ‘2020-04-01’ and ‘2020-04-04’ and card_tile like ‘admin%’
+select * from edc_prod_analytics_customer_$ORG_ID.user_assignments_performance_i_v where day between ‘2020-04-01’ and ‘2020-04-04’ and assignment_state=’completed’
 ````
 The output file will be downloaded locally with the given name provided through --filename argument.
